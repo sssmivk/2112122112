@@ -1,90 +1,101 @@
-import random
+from random import *
 
-class Astronaut:
-    def __init__(self, name):
+class Human:
+    def __init__(self, name, job=None, home=None, car=None):
         self.name = name
-        self.health = 100
-        self.energy = 50
-        self.morale = 50
-        self.alive = True
-        self.day = 1
+        self.money = 100
+        self.gladness = 50
+        self.satiety = 50
+        self.job = job
+        self.home = home
+        self.car = car
 
-    def show_status(self):
-        print("------")
-        print("Day:", self.day)
-        print("Health:", self.health)
-        print("Energy:", self.energy)
-        print("Morale:", self.morale)
-        print("------")
+    def get_home(self):
+        self.home = House()
 
-    def do_explore(self):
-        print("You go exploring...")
-        self.energy -= 10
-        self.morale += 5
-        chance = random.randint(1, 10)
-        if chance <= 3:
-            damage = random.randint(5, 20)
-            self.health -= damage
-            print("You got hurt! -", damage, "health")
+    def get_car(self):
+        self.car = Auto(brands_of_car)
+
+    def get_job(self):
+        if self.car.drive():
+            pass
         else:
-            print("Exploration went fine.")
+            self.to_repair()
+            return
 
-    def do_repair(self):
-        print("You repair the base...")
-        self.energy -= 15
-        self.morale -= 5
-        print("Repairs complete.")
+        self.job = Job(job_list)
 
-    def do_rest(self):
-        print("You take a rest...")
-        self.energy += 20
-        if self.energy > 100:
-            self.energy = 100
-        self.morale += 3
-        print("You feel rested.")
+    def eat(self):
+        pass
 
-    def do_communicate(self):
-        print("You talk to Earth...")
-        self.energy -= 5
-        self.morale += 10
-        print("You feel more connected.")
+    def work(self):
+        pass
 
-    def check_alive(self):
-        if self.health <= 0 or self.energy <= 0 or self.morale <= 0:
-            self.alive = False
+    def shopping(self, manage):
+        pass
 
-def main():
-    name = input("Enter your astronaut's name: ")
-    astro = Astronaut(name)
+    def chill(self):
+        pass
 
-    while astro.alive and astro.day <= 365:
-        astro.show_status()
-        print("Choose action:")
-        print("1 - Explore")
-        print("2 - Repair")
-        print("3 - Rest")
-        print("4 - Communicate")
+    def clean_home(self):
+        pass
 
-        choice = input("Your action: ")
+    def to_repair(self):
+        pass
 
-        if choice == "1":
-            astro.do_explore()
-        elif choice == "2":
-            astro.do_repair()
-        elif choice == "3":
-            astro.do_rest()
-        elif choice == "4":
-            astro.do_communicate()
-        else:
-            print("Invalid choice.")
+    def days_index(self, day):
+        pass
 
-        astro.check_alive()
-        if astro.alive:
-            astro.day += 1
-        else:
-            print("\nAstronaut", astro.name, "did not survive.")
+    def is_alive(self):
+        pass
 
-    if astro.alive:
-        print("\nCongrats! Astronaut", astro.name, "survived 365 days on Mars!")
+    def live(self, day):
+        pass
 
-main()
+    def is_alive(self):
+        pass
+
+    def live(self, day):
+        pass
+
+class Auto:
+    class Auto:
+        def __init__(self, brand_list):
+            self.brand = choice(list(brand_list))
+            self.fuel = brand_list[self.brand]["fuel"]
+            self.strength = brand_list[self.brand]["strength"]
+            self.consumption = brand_list[self.brand]["consumption"]
+
+        def drive(self):
+            if self.strength > 0 and self.fuel >= self.consumption:
+                self.fuel -= self.consumption
+                self.strength -= 1
+                return True
+            else:
+                print("The car cannot move")
+                return False
+
+brands_of_car = {
+    "BMW": {"fuel": 100, "strength": 100, "consumption": 6},
+    "Lada": {"fuel": 50, "strength": 40, "consumption": 10},
+    "Volvo": {"fuel": 70, "strength": 150, "consumption": 8},
+    "Ferrari": {"fuel": 80, "strength": 120, "consumption": 14}
+}
+
+class House:
+    def __init__(self):
+        self.mess = 0
+        self.food = 0
+
+class Job:
+    def __init__(self, job_list):
+        self.job = choice(list(job_list))
+        self.salary = job_list[self.job]["salary"]
+        self.gladness_less = job_list[self.job]["gladness_less"]
+
+job_list = {
+    "Java developer": {"salary": 50, "gladness_less": 10},
+    "Python developer": {"salary": 40, "gladness_less": 3},
+    "Photoshop creator": {"salary": 30, "gladness_less": 25},
+    "C++ creator": {"salary": 60, "gladness_less": 30}
+}
